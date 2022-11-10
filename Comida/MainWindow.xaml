@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
         Title="Comida" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel Margin="5">
+        <StackPanel Margin="5" DockPanel.Dock="Right" Background="Gray" Width="220"></StackPanel>
+        <ScrollViewer Margin="5">
+            <WrapPanel></WrapPanel>
+        </ScrollViewer>
+    </DockPanel>
 </Window>
