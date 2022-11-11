@@ -6,10 +6,58 @@
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
         Title="Comida" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="Menu">
+            <WrapPanel Orientation="Horizontal">
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock></TextBlock>
+                        <Image></Image>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Name="iconLeche" Source="Assets/milk.png"></Image>
+                            <Image Name="iconSoja" Source="Assets/soybean.png"></Image>
+                            <Image Name="iconGluten" Source="Assets/gluten.png"></Image>
+                            <Image Name="iconSulfitos" Source="Assets/sulfide.png"></Image>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </DataTemplate>
+        <Style TargetType="TextBlock" x:Key="TextBlockEdit">
+            <Setter Property="Margin" Value="10,10,0,0"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="200"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="200"></Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Window.Resources>
     <DockPanel Margin="5">
-        <StackPanel Margin="5" DockPanel.Dock="Right" Background="Gray" Width="220"></StackPanel>
-        <ScrollViewer Margin="5">
-            <WrapPanel></WrapPanel>
-        </ScrollViewer>
+        <StackPanel Margin="5" DockPanel.Dock="Right" Background="#BCBCBC" Width="220">
+            <TextBlock Style="{StaticResource TextBlockEdit}">Nombre del plato</TextBlock>
+            <TextBox x:Name="nombreTextBox"></TextBox>
+            <TextBlock Style="{StaticResource TextBlockEdit}">Foto del plato</TextBlock>
+            <TextBox x:Name="fotoTextBox"></TextBox>
+            <TextBlock Style="{StaticResource TextBlockEdit}">Tipo de comida</TextBlock>
+            <ComboBox x:Name="tipoListBox"></ComboBox>
+            <GroupBox Header="Alérgenos" Margin="10" BorderBrush="Black">
+                <UniformGrid>
+                    <CheckBox>Leche</CheckBox>
+                    <CheckBox>Soja</CheckBox>
+                    <CheckBox>Gluten</CheckBox>
+                    <CheckBox>Sulfitos</CheckBox>
+                </UniformGrid>
+            </GroupBox>
+            <Button HorizontalAlignment="Left" Margin="10" Width="130">Limpiar selección</Button>
+        </StackPanel>
+        <Border Margin="5" BorderBrush="#404040" BorderThickness="1">
+            <ListBox ItemTemplate="{StaticResource Menu}">
+            </ListBox>
+        </Border>
+        
     </DockPanel>
 </Window>
