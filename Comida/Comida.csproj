@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VistasModelo\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,7 +70,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modelo\PLato.cs" />
+    <Compile Include="Modelo\Plato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,15 +100,12 @@
     <Resource Include="Assets\china.png" />
     <Resource Include="Assets\fruit_food_apple.ico" />
     <Resource Include="Assets\gluten.png" />
-    <Resource Include="Assets\hotdog.jpg" />
     <Resource Include="Assets\mexico.png" />
     <Resource Include="Assets\milk.png" />
     <Resource Include="Assets\soybean.png" />
     <Resource Include="Assets\sulfide.png" />
     <Resource Include="Assets\united_states.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VistasModelo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
