@@ -11,6 +11,16 @@ namespace Comida.VistasModelo
 {
     class MainWindowVM : INotifyPropertyChanged
     {
+        private Plato comidaSeleccionada;
+        public Plato ComidaSeleccionada
+        {
+            get { return comidaSeleccionada; }
+            set
+            {
+                comidaSeleccionada = value;
+                NotifyPropertyChanged("ComidaSeleccionada");
+            }
+        }
         private ObservableCollection<Plato> lista;
 
         public ObservableCollection<Plato>  Lista

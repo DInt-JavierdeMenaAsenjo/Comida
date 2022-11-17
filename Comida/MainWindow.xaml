@@ -5,20 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
+        Background="LightSkyBlue"
         Title="Comida" Height="450" Width="800" MinHeight="500" MinWidth="650">
     <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="ComidaFuente">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="China">
+                    <Setter Property="FontFamily" Value="Chinese Wok Food St"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="USA">
+                    <Setter Property="FontFamily" Value="Slim Summer"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="Mexico">
+                    <Setter Property="FontFamily" Value="Taco Salad"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenGluten">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Gluten}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Gluten}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenLeche">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Leche}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Leche}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenSulfitos">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Sulfitos}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Sulfitos}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenSoja">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Soja}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Soja}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <DataTemplate x:Key="Menu">
-            <Border BorderThickness="1" BorderBrush="Black">
-                    <StackPanel Orientation="Vertical">
-                    <TextBlock Text="{Binding Path=Nombre}"  HorizontalAlignment="Center" FontSize="25"></TextBlock>
-                        <Image Source="{Binding Path=Imagen}" Width="200" Height="200" Margin="15" Stretch="UniformToFill"></Image>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Image Name="iconLeche" Width="25" Margin="5" Source="Assets/milk.png"></Image>
-                            <Image Name="iconSoja" Width="25" Margin="5" Source="Assets/soybean.png"></Image>
-                            <Image Name="iconGluten" Width="25" Margin="5" Source="Assets/gluten.png"></Image>
-                            <Image Name="iconSulfitos" Width="25" Margin="5" Source="Assets/sulfide.png"></Image>
-                        </StackPanel>
-                    </StackPanel>
+            <Border BorderThickness="1" BorderBrush="Black" Background="AliceBlue" Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Border.Effect>
+                    <StackPanel Orientation="Vertical" Width="250">
+                        <Viewbox Height="50">
+                            <TextBlock Text="{Binding Path=Nombre}" Style="{StaticResource ComidaFuente}" Margin="10,0,10,0" HorizontalAlignment="Center"></TextBlock>
+                        </Viewbox>
+                        <Image Source="{Binding Path=Imagen}" Width="200" Height="175" Margin="10" Stretch="UniformToFill"></Image>
+                        <DockPanel>
+                            <Image DockPanel.Dock="Left" Name="paisImage" HorizontalAlignment="Left" Source="Assets/china.png" Width="35" Margin="20,0,0,0"></Image>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                <Image Name="iconGluten" Style="{StaticResource ImagenGluten}" Width="25"  Source="Assets/gluten.png" ToolTip="Gluten"></Image>
+                                <Image Name="iconLeche" Style="{StaticResource ImagenLeche}" Width="25" Source="Assets/milk.png" ToolTip="Leche"></Image>
+                                <Image Name="iconSulfitos" Style="{StaticResource ImagenSulfitos}" Width="25" Source="Assets/sulfide.png" ToolTip="Sulfitos"></Image>
+                                <Image Name="iconSoja" Style="{StaticResource ImagenSoja}" Width="25" Source="Assets/soybean.png" ToolTip="Soja"></Image>
+                            </StackPanel>
+                        </DockPanel>
+                </StackPanel>
             </Border>
         </DataTemplate>
         <Style TargetType="TextBlock" x:Key="TextBlockEdit">
@@ -34,12 +96,14 @@
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
     </Window.Resources>
-    <DockPanel Margin="5">
+        
+        
+    <DockPanel Margin="10" Background="White">
         <StackPanel Margin="5" DockPanel.Dock="Right" Background="#BCBCBC" Width="320">
-            <TextBlock Style="{StaticResource TextBlockEdit}">Nombre del plato</TextBlock>
-            <TextBox x:Name="nombreTextBox"></TextBox>
+            <TextBlock Style="{StaticResource TextBlockEdit}" >Nombre del plato</TextBlock>
+            <TextBox x:Name="nombreTextBox" Text="{Binding Path=ComidaSeleccionada.Nombre}"></TextBox>
             <TextBlock Style="{StaticResource TextBlockEdit}">Foto del plato</TextBlock>
-            <TextBox x:Name="fotoTextBox"></TextBox>
+            <TextBox x:Name="fotoTextBox" Text="{Binding Path=ComidaSeleccionada.imagen}"></TextBox>
             <TextBlock Style="{StaticResource TextBlockEdit}">Tipo de comida</TextBlock>
             <ComboBox x:Name="tipoListBox"></ComboBox>
             <GroupBox Header="Alérgenos" Margin="10" BorderBrush="Black">
@@ -53,7 +117,7 @@
             <Button HorizontalAlignment="Left" Margin="10" Width="130">Limpiar selección</Button>
         </StackPanel>
         <Border Margin="5" BorderBrush="#404040" BorderThickness="1">
-            <ListBox ItemTemplate="{StaticResource Menu}" ItemsSource="{Binding Lista}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox ItemTemplate="{StaticResource Menu}" ItemsSource="{Binding Lista}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=ComidaSeleccionada}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel></WrapPanel>
