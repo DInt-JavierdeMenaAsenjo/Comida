@@ -24,8 +24,14 @@ namespace Comida
         private MainWindowVM vm = new MainWindowVM();
         public MainWindow()
         {
+
             InitializeComponent();
             this.DataContext = vm;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            vm.LimpiaSeleccion();
         }
     }
 }

@@ -21,6 +21,11 @@ namespace Comida.VistasModelo
                 NotifyPropertyChanged("ComidaSeleccionada");
             }
         }
+
+        public void LimpiaSeleccion()
+        {
+            ComidaSeleccionada = null;
+        }
         private ObservableCollection<Plato> lista;
 
         public ObservableCollection<Plato>  Lista
@@ -30,10 +35,35 @@ namespace Comida.VistasModelo
                 NotifyPropertyChanged("Lista");
             }
         }
+
+        private ObservableCollection<String> tipos;
+
+        public ObservableCollection<String> Tipos
+        {
+            get { return tipos; }
+            set
+            {
+                tipos = value;
+                NotifyPropertyChanged("Tipos");
+            }
+        }
         public MainWindowVM()
         {
+            Tipos = new ObservableCollection<string>();
             string path = "C:/Users/alumno/Downloads/imagenesComida";
+            Tipos.Add("USA");
+            Tipos.Add("Mexico");
+            Tipos.Add("China");
             Lista = Plato.GetSamples(path);
+        }
+
+        public void IniciaChecks()
+        {
+
+            ComidaSeleccionada.Leche = false;
+            ComidaSeleccionada.Gluten = false;
+            ComidaSeleccionada.Soja = false;
+            ComidaSeleccionada.Sulfitos = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

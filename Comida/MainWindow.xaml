@@ -8,6 +8,33 @@
         Background="LightSkyBlue"
         Title="Comida" Height="450" Width="800" MinHeight="500" MinWidth="650">
     <Window.Resources>
+        <Style TargetType="{x:Type Image}" x:Key="ImagenPais">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="China">
+                    <Setter Property="Source" Value="/Assets/china.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="USA">
+                    <Setter Property="Source" Value="/Assets/united_states.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="Mexico">
+                    <Setter Property="Source" Value="/Assets/mexico.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}" x:Key="TipoComida">
+            <Setter Property="Width" Value="300"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="China">
+                    <Setter Property="SelectedItem" Value="China"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="USA">
+                    <Setter Property="SelectedItem" Value="USA"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Pais}" Value="Mexico">
+                    <Setter Property="SelectedItem" Value="Mexico"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="{x:Type TextBlock}" x:Key="ComidaFuente">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Pais}" Value="China">
@@ -72,7 +99,7 @@
                         </Viewbox>
                         <Image Source="{Binding Path=Imagen}" Width="200" Height="175" Margin="10" Stretch="UniformToFill"></Image>
                         <DockPanel>
-                            <Image DockPanel.Dock="Left" Name="paisImage" HorizontalAlignment="Left" Source="Assets/china.png" Width="35" Margin="20,0,0,0"></Image>
+                        <Image DockPanel.Dock="Left" Name="paisImage" Style="{StaticResource ImagenPais}" HorizontalAlignment="Left" Width="35" Margin="20,0,0,0"></Image>
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
                                 <Image Name="iconGluten" Style="{StaticResource ImagenGluten}" Width="25"  Source="Assets/gluten.png" ToolTip="Gluten"></Image>
                                 <Image Name="iconLeche" Style="{StaticResource ImagenLeche}" Width="25" Source="Assets/milk.png" ToolTip="Leche"></Image>
@@ -89,9 +116,6 @@
         <Style TargetType="TextBox">
             <Setter Property="Width" Value="300"></Setter>
         </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Width" Value="300"></Setter>
-        </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Margin" Value="5"></Setter>
         </Style>
@@ -103,18 +127,18 @@
             <TextBlock Style="{StaticResource TextBlockEdit}" >Nombre del plato</TextBlock>
             <TextBox x:Name="nombreTextBox" Text="{Binding Path=ComidaSeleccionada.Nombre}"></TextBox>
             <TextBlock Style="{StaticResource TextBlockEdit}">Foto del plato</TextBlock>
-            <TextBox x:Name="fotoTextBox" Text="{Binding Path=ComidaSeleccionada.imagen}"></TextBox>
+            <TextBox x:Name="fotoTextBox" Text="{Binding Path=ComidaSeleccionada.Imagen}"></TextBox>
             <TextBlock Style="{StaticResource TextBlockEdit}">Tipo de comida</TextBlock>
-            <ComboBox x:Name="tipoListBox"></ComboBox>
+            <ComboBox x:Name="tipoListBox" ItemsSource="{Binding Tipos}" Style="{StaticResource TipoComida}" SelectedItem="{Binding Path=ComidaSeleccionada.Pais}"></ComboBox>
             <GroupBox Header="Alérgenos" Margin="10" BorderBrush="Black">
                 <UniformGrid>
-                    <CheckBox>Leche</CheckBox>
-                    <CheckBox>Soja</CheckBox>
-                    <CheckBox>Gluten</CheckBox>
-                    <CheckBox>Sulfitos</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=ComidaSeleccionada.Leche}">Leche</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=ComidaSeleccionada.Soja}">Soja</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=ComidaSeleccionada.Gluten}">Gluten</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=ComidaSeleccionada.Sulfitos}">Sulfitos</CheckBox>
                 </UniformGrid>
             </GroupBox>
-            <Button HorizontalAlignment="Left" Margin="10" Width="130">Limpiar selección</Button>
+            <Button HorizontalAlignment="Left" Margin="10" Width="130" Click="Button_Click">Limpiar selección</Button>
         </StackPanel>
         <Border Margin="5" BorderBrush="#404040" BorderThickness="1">
             <ListBox ItemTemplate="{StaticResource Menu}" ItemsSource="{Binding Lista}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=ComidaSeleccionada}">
